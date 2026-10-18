@@ -254,10 +254,11 @@ body.busy .plant,body.busy .bloom,body.busy .sparkles i,body.busy .heart-btn{ani
 .poem .para.tight2{margin-top:2px}
 .poem .end.wish{font-family:var(--cursive);font-weight:400;font-style:italic;color:#fff;margin-top:30px;
   font-size:clamp(1.5rem,6.2vw,2.1rem);line-height:1.7;letter-spacing:0;text-shadow:0 2px 0 #8a3fd1,0 0 22px rgba(255,170,230,.9)}
-#s5,#s6{justify-content:flex-start;overflow-y:auto;padding-bottom:215px}
+#s5,#s6,#s7{justify-content:flex-start;overflow-y:auto;padding-bottom:215px}
 #treat2::before{content:'🥳'!important}
-#treat2.go .para{animation-delay:.4s}
-#treat2.go .para.p2{animation-delay:1.9s}
+#treat3::before{content:'🫶'!important}
+#treat2.go .para,#treat3.go .para{animation-delay:.4s}
+#treat2.go .para.p2,#treat3.go .para.p2{animation-delay:1.9s}
 .treat{text-align:center}
 .treat::before{content:'🎁'!important}
 .treat h2{margin-bottom:14px;font-size:clamp(1.8rem,7vw,2.8rem)}
@@ -438,6 +439,14 @@ body.both .nav.next{left:calc(50% + 12px)}
   <div class="poem treat" id="treat2">
     <p class="para">Kalo kamu bingung mau jalan kapan malem ini juga bisa, kalo mau ramean juga boleh, mau kamu yang nentuin tempatnya apa mau aku?</p>
     <p class="para p2">Pasti kamu engga mau, kamu kan mau ngerayainnya bareng temen kamu 😊</p>
+  </div>
+</section>
+
+<!-- Layar 7: terima kasih -->
+<section class="screen hidden out-r" id="s7">
+  <div class="poem treat" id="treat3">
+    <p class="para">Terima kasih udah hadir di hidup aku, kehadiran kamu itu berarti banget buat aku 💗</p>
+    <p class="para p2">Kalo bisa jangan asing ya, aku udah engga mau lagi kenal sama orang lain, cukup kamu aja jadi orang paling favorit</p>
   </div>
 </section>
 
@@ -774,16 +783,16 @@ body.both .nav.next{left:calc(50% + 12px)}
     oa.onfinish=function(){ hide(outEl,outCls); oa.cancel(); navLock=false; };
   }
 
-  var els={3:s3,4:s4,5:$('s5'),6:$('s6')};
+  var els={3:s3,4:s4,5:$('s5'),6:$('s6'),7:$('s7')};
   function updateNav(){
-    var showPrev=slide>3, showNext=slide>=3&&slide<6;
+    var showPrev=slide>3, showNext=slide>=3&&slide<7;
     $('prev').classList.toggle('on',showPrev);
     $('next').classList.toggle('on',showNext);
     document.body.classList.toggle('both',showPrev&&showNext);
   }
   function restart(el){ el.classList.remove('go'); void el.offsetWidth; el.classList.add('go'); }
   function goTo(n){
-    if(slide<3||navLock||n===slide||n<3||n>6) return;
+    if(slide<3||navLock||n===slide||n<3||n>7) return;
     var dir=n>slide?1:-1, from=els[slide], to=els[n];
     slide=n; stopF=true;
     if(n===4){ s4.scrollTop=0; buildPoem(); }
@@ -791,6 +800,7 @@ body.both .nav.next{left:calc(50% + 12px)}
     if(n===4){ restart($('poem')); follow(); }
     if(n===5){ restart($('treat')); }
     if(n===6){ restart($('treat2')); }
+    if(n===7){ restart($('treat3')); }
     updateNav();
   }
   $('next').addEventListener('click',function(){ goTo(slide+1); });
